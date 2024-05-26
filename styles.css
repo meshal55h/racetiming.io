@@ -1,0 +1,96 @@
+/* General Styles */
+body {
+    font-family: Arial, sans-serif;
+    text-align: center;
+    margin: 20px;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+
+
+/* Button Styles */
+button {
+    margin: 10px;
+    padding: 10px 20px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: none;
+    background-color: #007bff;
+    color: #fff;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* Icon Styles */
+.icon {
+    cursor: pointer;
+    font-size: 24px;
+    margin: 20px;
+}
+
+/* Hidden Element Style */
+.hidden {
+    display: none;
+}
+
+/* Table Styles */
+table {
+    width: 100%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+th, td {
+    border: 1px solid #ddd;
+    padding: 10px;
+}
+
+th {
+    background-color: #007bff;
+    color: #fff;
+}
+
+/* Signature Style */
+.signature {
+    margin-top: 50px;
+    font-weight: bold;
+    font-size: 20px;
+}
+
+/* Responsive Styles */
+@media screen and (max-width: 600px) {
+    /* Adjustments for Small Screens */
+    body {
+        margin: 10px;
+    }
+
+    input {
+        padding: 8px;
+        font-size: 14px;
+    }
+
+    button {
+        padding: 8px 16px;
+        font-size: 14px;
+    }
+
+    .icon {
+        font-size: 20px;
+        margin: 10px;
+    }
+
+    /* Table Adjustments */
+    th, td {
+        padding: 8px;
+    }
+
+    /* Signature Adjustment */
+    .signature {
+        margin-top: 30px;
+        font-size: 18px;
+    }
+}
