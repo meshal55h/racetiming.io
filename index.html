@@ -3,214 +3,271 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="styles.css">
-    <title>جمع الأزمنة وتوقيتات المتسابقين</title>
+    <link rel="stylesheet" href="styles copy.css">
+    <title>موقع حساب السباقات</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center;
-            margin: 50px;
+            direction: rtl;
+            text-align: right;
         }
-        input {
-            margin: 5px;
-            padding: 5px;
-            font-size: 16px;
-        }
-        button {
-            margin: 10px;
-            padding: 10px;
-            font-size: 16px;
-        }
-        .icon {
-            cursor: pointer;
-            font-size: 24px;
+        .container {
             margin: 20px;
         }
-        .hidden {
-            display: none;
-        }
         table {
-            margin: 20px auto;
+            width: 100%;
             border-collapse: collapse;
+            margin-top: 20px;
         }
         table, th, td {
             border: 1px solid black;
-            padding: 10px;
         }
-        .signature {
-            margin-top: 50px;
-            font-weight: bold;
-            font-size: 20px;
+        th, td {
+            padding: 8px;
+            text-align: center;
+        }
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .tab {
+            display: none;
+        }
+        .tab.active {
+            display: block;
+        }
+        .tab-buttons {
+            margin-bottom: 20px;
+        }
+        .tab-buttons button {
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .time-input {
+            display: inline-block;
+            width: 50px;
         }
     </style>
 </head>
 <body>
-    <div id="timeCalculator">
-        <h1>جمع الأزمنة</h1>
 
-        <div class="signature">ارقام انجليزية فقط</div>
-        <div class="signature">ملاحظة مهمة: الرجاء التكتم على الموقع عشان م يطردونا من الاختبار</div>
-        <div>
-            <label>الزمن الاول:</label>
-            <input type="number" id="hours1" placeholder="الساعات">
-            <input type="number" id="minutes1" placeholder="الدقائق">
-            <input type="number" id="seconds1" placeholder="الثواني">
+    <div class="container">
+        <div class="tab-buttons">
+            <button onclick="showTab('team')">سباق الفرق</button>
+            <button onclick="showTab('individual')">سباق الفردي العام</button>
         </div>
-        <div>
-            <label>الزمن الثاني:</label>
-            <input type="number" id="hours2" placeholder="الساعات">
-            <input type="number" id="minutes2" placeholder="الدقائق">
-            <input type="number" id="seconds2" placeholder="الثواني">
-        </div>
-        <div>
-            <label>الزمن الثالث:</label>
-            <input type="number" id="hours3" placeholder="الساعات">
-            <input type="number" id="minutes3" placeholder="الدقائق">
-            <input type="number" id="seconds3" placeholder="الثواني">
-        </div>
-        <button onclick="calculateSum()">حساب المجموع</button>
-        <button onclick="clearInputs()">تفريغ المدخلات</button>
-        <h2 id="result"></h2>
 
-        <button onclick="showRaceCalculator()"> الترتيب العام افراد</button>
+        <div id="team" class="tab active">
+            <h1>سباق الفرق</h1>
+            <label>اسم الفريق:</label>
+            <input type="text" id="teamName"><br>
+            <h3>أزمنة المتسابقين</h3>
+            <label>زمن المتسابق الأول:</label>
+            <input type="number" class="time-input" id="time1Hours" placeholder="ساعات">
+            <input type="number" class="time-input" id="time1Minutes" placeholder="دقائق">
+            <input type="number" class="time-input" id="time1Seconds" placeholder="ثواني"><br>
+            <label>زمن المتسابق الثاني:</label>
+            <input type="number" class="time-input" id="time2Hours" placeholder="ساعات">
+            <input type="number" class="time-input" id="time2Minutes" placeholder="دقائق">
+            <input type="number" class="time-input" id="time2Seconds" placeholder="ثواني"><br>
+            <label>زمن المتسابق الثالث:</label>
+            <input type="number" class="time-input" id="time3Hours" placeholder="ساعات">
+            <input type="number" class="time-input" id="time3Minutes" placeholder="دقائق">
+            <input type="number" class="time-input" id="time3Seconds" placeholder="ثواني"><br>
+            <button onclick="saveTeamResult()">تسجيل النتيجة</button>
+            <button onclick="clearInputs('team')">تفريغ المحتويات</button>
+            <button onclick="calculateTeamResults()">حساب النتيجة</button>
+            <button onclick="clearAllResults('team')">حذف جميع النتائج</button>
+
+            <h2>النتائج</h2>
+            <table id="teamResultsTable">
+                <thead>
+                    <tr>
+                        <th>ترتيب الفريق</th>
+                        <th>اسم الفريق</th>
+                        <th>زمن اللاعب الأول</th>
+                        <th>زمن اللاعب الثاني</th>
+                        <th>زمن اللاعب الثالث</th>
+                        <th>مجموع الأزمنة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="individual" class="tab">
+            <h1>سباق الفردي العام</h1>
+            <label>رقم اللاعب:</label>
+            <input type="text" id="playerNumber"><br>
+            <label>زمن المرحلة الأولى:</label>
+            <input type="number" class="time-input" id="stage1Hours" placeholder="ساعات">
+            <input type="number" class="time-input" id="stage1Minutes" placeholder="دقائق">
+            <input type="number" class="time-input" id="stage1Seconds" placeholder="ثواني"><br>
+            <label>زمن المرحلة الثانية:</label>
+            <input type="number" class="time-input" id="stage2Hours" placeholder="ساعات">
+            <input type="number" class="time-input" id="stage2Minutes" placeholder="دقائق">
+            <input type="number" class="time-input" id="stage2Seconds" placeholder="ثواني"><br>
+            <button onclick="savePlayerResult()">حفظ النتيجة</button>
+            <button onclick="clearInputs('individual')">تفريغ المدخلات</button>
+            <button onclick="calculatePlayerResults()">عرض النتائج</button>
+            <button onclick="clearAllResults('individual')">حذف النتائج</button>
+
+            <h2>النتائج</h2>
+            <table id="individualResultsTable">
+                <thead>
+                    <tr>
+                        <th>الترتيب</th>
+                        <th>رقم اللاعب</th>
+                        <th>زمن المرحلة الأولى</th>
+                        <th>زمن المرحلة الثانية</th>
+                        <th>مجموع الأزمنة</th>
+                    </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
+        </div>
     </div>
-
-    <div id="raceCalculator" class="hidden">
-        <h1>توقيتات المتسابقين</h1>
-        <div>
-            <label>اسم اللاعب:</label>
-            <input type="text" id="name">
-        </div>
-        <div>
-            <label>زمن اليوم الأول:</label>
-            <input type="number" id="day1Hours" placeholder="ساعات">
-            <input type="number" id="day1Minutes" placeholder="دقائق">
-            <input type="number" id="day1Seconds" placeholder="ثواني">
-        </div>
-        <div>
-            <label>زمن اليوم الثاني:</label>
-            <input type="number" id="day2Hours" placeholder="ساعات">
-            <input type="number" id="day2Minutes" placeholder="دقائق">
-            <input type="number" id="day2Seconds" placeholder="ثواني">
-        </div>
-        <button onclick="addParticipant()">إضافة المتسابق</button>
-        <button onclick="calculateAndSort()">حساب وترتيب المتسابقين</button>
-        <button onclick="clearParticipants()">حذف جميع السجلات</button>
-        <button onclick="showTimeCalculator()">العودة لجمع الأزمنة</button>
-
-        <table id="resultTable">
-            <thead>
-                <tr>
-                    <th>الترتيب</th>
-                    <th>اسم المتسابق</th>
-                    <th>الزمن الكلي </th>
-                </tr>
-            </thead>
-            <tbody></tbody>
-        </table>
-    </div>
-
-    <div class="signature"> تنفيذ: فاعل خير</div>
 
     <script>
-        function calculateSum() {
-            // قراءة المدخلات
-            let hours1 = parseInt(document.getElementById('hours1').value) || 0;
-            let hours2 = parseInt(document.getElementById('hours2').value) || 0;
-            let hours3 = parseInt(document.getElementById('hours3').value) || 0;
-            let minutes1 = parseInt(document.getElementById('minutes1').value) || 0;
-            let minutes2 = parseInt(document.getElementById('minutes2').value) || 0;
-            let minutes3 = parseInt(document.getElementById('minutes3').value) || 0;
-            let seconds1 = parseInt(document.getElementById('seconds1').value) || 0;
-            let seconds2 = parseInt(document.getElementById('seconds2').value) || 0;
-            let seconds3 = parseInt(document.getElementById('seconds3').value) || 0;
+       
+        const teams = [];
+        const players = [];
 
-            // حساب المجموع
-            let totalSeconds = seconds1 + seconds2 + seconds3;
-            let totalMinutes = minutes1 + minutes2 + minutes3 + Math.floor(totalSeconds / 60);
-            let totalHours = hours1 + hours2 + hours3 + Math.floor(totalMinutes / 60);
-
-            // تحديث النتيجة
-            totalSeconds = totalSeconds % 60;
-            totalMinutes = totalMinutes % 60;
-
-            document.getElementById('result').textContent = `${totalHours} : ${totalMinutes} : ${totalSeconds} `;
+        function parseTime(hours, minutes, seconds) {
+            return (hours * 3600) + (minutes * 60) + seconds;
         }
 
-        function clearInputs() {
-            document.getElementById('hours1').value = '';
-            document.getElementById('hours2').value = '';
-            document.getElementById('hours3').value = '';
-            document.getElementById('minutes1').value = '';
-            document.getElementById('minutes2').value = '';
-            document.getElementById('minutes3').value = '';
-            document.getElementById('seconds1').value = '';
-            document.getElementById('seconds2').value = '';
-            document.getElementById('seconds3').value = '';
-            document.getElementById('result').textContent = '';
+        function formatTime(totalSeconds) {
+            const hours = String(Math.floor(totalSeconds / 3600)).padStart(2, '0');
+            const minutes = String(Math.floor((totalSeconds % 3600) / 60)).padStart(2, '0');
+            const seconds = String(totalSeconds % 60).padStart(2, '0');
+            return `${hours}:${minutes}:${seconds}`;
         }
 
-        function showRaceCalculator() {
-            document.getElementById('timeCalculator').classList.add('hidden');
-            document.getElementById('raceCalculator').classList.remove('hidden');
+        function saveTeamResult() {
+            const teamName = document.getElementById('teamName').value;
+            const time1 = parseTime(
+                parseInt(document.getElementById('time1Hours').value) || 0,
+                parseInt(document.getElementById('time1Minutes').value) || 0,
+                parseInt(document.getElementById('time1Seconds').value) || 0
+            );
+            const time2 = parseTime(
+                parseInt(document.getElementById('time2Hours').value) || 0,
+                parseInt(document.getElementById('time2Minutes').value) || 0,
+                parseInt(document.getElementById('time2Seconds').value) || 0
+            );
+            const time3 = parseTime(
+                parseInt(document.getElementById('time3Hours').value) || 0,
+                parseInt(document.getElementById('time3Minutes').value) || 0,
+                parseInt(document.getElementById('time3Seconds').value) || 0
+            );
+            const totalTime = time1 + time2 + time3;
+
+            teams.push({ teamName, time1, time2, time3, totalTime });
+
+            clearInputs('team');
         }
 
-        function showTimeCalculator() {
-            document.getElementById('raceCalculator').classList.add('hidden');
-            document.getElementById('timeCalculator').classList.remove('hidden');
+        function clearInputs(type) {
+            if (type === 'team') {
+                document.getElementById('teamName').value = '';
+                document.getElementById('time1Hours').value = '';
+                document.getElementById('time1Minutes').value = '';
+                document.getElementById('time1Seconds').value = '';
+                document.getElementById('time2Hours').value = '';
+                document.getElementById('time2Minutes').value = '';
+                document.getElementById('time2Seconds').value = '';
+                document.getElementById('time3Hours').value = '';
+                document.getElementById('time3Minutes').value = '';
+                document.getElementById('time3Seconds').value = '';
+            } else if (type === 'individual') {
+                document.getElementById('playerNumber').value = '';
+                document.getElementById('stage1Hours').value = '';
+                document.getElementById('stage1Minutes').value = '';
+                document.getElementById('stage1Seconds').value = '';
+                document.getElementById('stage2Hours').value = '';
+                document.getElementById('stage2Minutes').value = '';
+                document.getElementById('stage2Seconds').value = '';
+            }
         }
 
-        let participants = [];
+        function calculateTeamResults() {
+            teams.sort((a, b) => a.totalTime - b.totalTime);
 
-        function addParticipant() {
-            let name = document.getElementById('name').value;
-            let day1Hours = parseInt(document.getElementById('day1Hours').value) || 0;
-            let day1Minutes = parseInt(document.getElementById('day1Minutes').value) || 0;
-            let day1Seconds = parseInt(document.getElementById('day1Seconds').value) || 0;
-            let day2Hours = parseInt(document.getElementById('day2Hours').value) || 0;
-            let day2Minutes = parseInt(document.getElementById('day2Minutes').value) || 0;
-            let day2Seconds = parseInt(document.getElementById('day2Seconds').value) || 0;
+            const tbody = document.getElementById('teamResultsTable').querySelector('tbody');
+            tbody.innerHTML = '';
 
-            let totalSeconds = (day1Hours + day2Hours) * 3600 + (day1Minutes + day2Minutes) * 60 + (day1Seconds + day2Seconds);
-
-            participants.push({ name, totalSeconds });
-
-            // تفريغ المدخلات
-            document.getElementById('name').value = '';
-            document.getElementById('day1Hours').value = '';
-            document.getElementById('day1Minutes').value = '';
-            document.getElementById('day1Seconds').value = '';
-            document.getElementById('day2Hours').value = '';
-            document.getElementById('day2Minutes').value = '';
-            document.getElementById('day2Seconds').value = '';
-        }
-
-        function calculateAndSort() {
-            // ترتيب المتسابقين حسب التوقيت الكلي
-            participants.sort((a, b) => a.totalSeconds - b.totalSeconds);
-
-            // عرض النتائج
-            let resultTableBody = document.getElementById('resultTable').querySelector('tbody');
-            resultTableBody.innerHTML = '';
-            participants.forEach((participant, index) => {
-                let hours = Math.floor(participant.totalSeconds / 3600);
-                let minutes = Math.floor((participant.totalSeconds % 3600) / 60);
-                let seconds = participant.totalSeconds % 60;
-
-                let row = document.createElement('tr');
+            teams.forEach((team, index) => {
+                const row = document.createElement('tr');
                 row.innerHTML = `
                     <td>${index + 1}</td>
-                    <td>${participant.name}</td>
-                    <td>${hours} : ${minutes} : ${seconds} </td>
+                    <td>${team.teamName}</td>
+                    <td>${formatTime(team.time1)}</td>
+                    <td>${formatTime(team.time2)}</td
+                        <td>${formatTime(team.time3)}</td>
+                    <td>${formatTime(team.totalTime)}</td>
                 `;
-                resultTableBody.appendChild(row);
+                tbody.appendChild(row);
             });
         }
 
-        function clearParticipants() {
-            participants = [];
-            let resultTableBody = document.getElementById('resultTable').querySelector('tbody');
-            resultTableBody.innerHTML = '';
+        function clearAllResults(type) {
+            if (type === 'team') {
+                teams.length = 0;
+                document.getElementById('teamResultsTable').querySelector('tbody').innerHTML = '';
+            } else if (type === 'individual') {
+                players.length = 0;
+                document.getElementById('individualResultsTable').querySelector('tbody').innerHTML = '';
+            }
+        }
+
+        function savePlayerResult() {
+            const playerNumber = document.getElementById('playerNumber').value;
+            const stage1 = parseTime(
+                parseInt(document.getElementById('stage1Hours').value) || 0,
+                parseInt(document.getElementById('stage1Minutes').value) || 0,
+                parseInt(document.getElementById('stage1Seconds').value) || 0
+            );
+            const stage2 = parseTime(
+                parseInt(document.getElementById('stage2Hours').value) || 0,
+                parseInt(document.getElementById('stage2Minutes').value) || 0,
+                parseInt(document.getElementById('stage2Seconds').value) || 0
+            );
+            const totalTime = stage1 + stage2;
+
+            players.push({ playerNumber, stage1, stage2, totalTime });
+
+            clearInputs('individual');
+        }
+
+        function calculatePlayerResults() {
+            players.sort((a, b) => a.totalTime - b.totalTime);
+
+            const tbody = document.getElementById('individualResultsTable').querySelector('tbody');
+            tbody.innerHTML = '';
+
+            players.forEach((player, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td>${player.playerNumber}</td>
+                    <td>${formatTime(player.stage1)}</td>
+                    <td>${formatTime(player.stage2)}</td>
+                    <td>${formatTime(player.totalTime)}</td>
+                `;
+                tbody.appendChild(row);
+            });
+        }
+
+        function showTab(tabId) {
+            document.querySelectorAll('.tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.getElementById(tabId).classList.add('active');
         }
     </script>
 </body>
