@@ -9,7 +9,7 @@
         body {
             font-family: Arial, sans-serif;
             direction: rtl;
-            text-align: right;
+            text-align: center;
         }
         .container {
             margin: 20px;
@@ -18,13 +18,16 @@
             width: 100%;
             border-collapse: collapse;
             margin-top: 20px;
+            
         }
         table, th, td {
-            border: 1px solid black;
+            border: 2px solid black;
+            
         }
         th, td {
             padding: 8px;
-            text-align: center;
+             text-align: center;
+             
         }
         button {
             padding: 10px;
@@ -61,6 +64,8 @@
 
         <div id="team" class="tab active">
             <h1>سباق الفرق</h1>
+            <div class="signature">ادخل اسم الفريق الاول واوقات المتسابقين ثم اضغط على حفظ<br> ثم ادخل الفريق الثاني وهكذا وعند الانتهاء من جميع الفرق اضغط حساب النتائج</div> 
+            <br>
             <label>اسم الفريق:</label>
             <input type="text" id="teamName"><br>
             <h3>أزمنة المتسابقين</h3>
@@ -76,9 +81,9 @@
             <input type="number" class="time-input" id="time3Hours" placeholder="ساعات">
             <input type="number" class="time-input" id="time3Minutes" placeholder="دقائق">
             <input type="number" class="time-input" id="time3Seconds" placeholder="ثواني"><br>
-            <button onclick="saveTeamResult()">تسجيل النتيجة</button>
+            <button onclick="saveTeamResult()">حفظ</button>
             <button onclick="clearInputs('team')">تفريغ المحتويات</button>
-            <button onclick="calculateTeamResults()">حساب النتيجة</button>
+            <button onclick="calculateTeamResults()">حساب النتائج</button>
             <button onclick="clearAllResults('team')">حذف جميع النتائج</button>
 
             <h2>النتائج</h2>
@@ -91,15 +96,18 @@
                         <th>زمن اللاعب الثاني</th>
                         <th>زمن اللاعب الثالث</th>
                         <th>مجموع الأزمنة</th>
-                    </tr>
+                    </tr> 
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+        
 
         <div id="individual" class="tab">
             <h1>سباق الفردي العام</h1>
+            <div class="signature">ادخل رقم اللاعب وزمن المرحلة الاولى والثانية ثم اضغط حفظ لتسجيل اللاعب الذي يليله <br>عند الانتهاء اضغط عرض النتائج </div>
+            <br>
             <label>رقم اللاعب:</label>
             <input type="text" id="playerNumber"><br>
             <label>زمن المرحلة الأولى:</label>
@@ -270,5 +278,7 @@
             document.getElementById(tabId).classList.add('active');
         }
     </script>
+    <div class="signature">تنفيذ : م. مشعل الحربي</div>
 </body>
 </html>
+
