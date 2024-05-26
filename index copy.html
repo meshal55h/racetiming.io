@@ -5,41 +5,36 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles copy.css">
     <title>موقع حساب السباقات</title>
-    
-</head>
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        text-align: center;
-        margin: 50px;
-    }
-    input {
-        margin: 5px;
-        padding: 5px;
-        font-size: 16px;
-    }
-    button {
-        margin: 10px;
-        padding: 10px;
-        font-size: 16px;
-    }
-    .icon {
-        cursor: pointer;
-        font-size: 24px;
-        margin: 20px;
-    }
-    .hidden {
-        display: none;
-    }
-    table {
-        margin: 20px auto;
-        border-collapse: collapse;
-    }
-    table, th, td {
-        border: 1px solid black;
-        padding: 10px;
-    }
-    .tab {
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            direction: rtl;
+            text-align: center;
+        }
+        .container {
+            margin: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            
+        }
+        table, th, td {
+            border: 2px solid black;
+            
+        }
+        th, td {
+            padding: 8px;
+             text-align: center;
+             
+        }
+        button {
+            padding: 10px;
+            margin: 10px 0;
+            cursor: pointer;
+        }
+        .tab {
             display: none;
         }
         .tab.active {
@@ -57,13 +52,8 @@
             display: inline-block;
             width: 50px;
         }
-    .signature {
-        margin-top: 50px;
-        font-weight: bold;
-        font-size: 20px;
-    }
-</style>
-
+    </style>
+</head>
 <body>
 
     <div class="container">
@@ -225,8 +215,8 @@
                     <td>${index + 1}</td>
                     <td>${team.teamName}</td>
                     <td>${formatTime(team.time1)}</td>
-                    <td>${formatTime(team.time2)}</td>
-                    <td>${formatTime(team.time3)}</td>
+                    <td>${formatTime(team.time2)}</td
+                        <td>${formatTime(team.time3)}</td>
                     <td>${formatTime(team.totalTime)}</td>
                 `;
                 tbody.appendChild(row);
