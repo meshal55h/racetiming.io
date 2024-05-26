@@ -5,33 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles copy.css">
     <title>موقع حساب السباقات</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            direction: rtl;
-            text-align: right;
-        }
-        .container {
-            margin: 20px;
-        }
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            margin-top: 20px;
-        }
-        table, th, td {
-            border: 1px solid black;
-        }
-        th, td {
-            padding: 8px;
-            text-align: center;
-        }
-        button {
-            padding: 10px;
-            margin: 10px 0;
-            cursor: pointer;
-        }
-        .tab {
+    
+</head>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        text-align: center;
+        margin: 50px;
+    }
+    input {
+        margin: 5px;
+        padding: 5px;
+        font-size: 16px;
+    }
+    button {
+        margin: 10px;
+        padding: 10px;
+        font-size: 16px;
+    }
+    .icon {
+        cursor: pointer;
+        font-size: 24px;
+        margin: 20px;
+    }
+    .hidden {
+        display: none;
+    }
+    table {
+        margin: 20px auto;
+        border-collapse: collapse;
+    }
+    table, th, td {
+        border: 1px solid black;
+        padding: 10px;
+    }
+    .tab {
             display: none;
         }
         .tab.active {
@@ -49,8 +57,13 @@
             display: inline-block;
             width: 50px;
         }
-    </style>
-</head>
+    .signature {
+        margin-top: 50px;
+        font-weight: bold;
+        font-size: 20px;
+    }
+</style>
+
 <body>
 
     <div class="container">
@@ -61,6 +74,8 @@
 
         <div id="team" class="tab active">
             <h1>سباق الفرق</h1>
+            <div class="signature">ادخل اسم الفريق الاول واوقات المتسابقين ثم اضغط على حفظ<br> ثم ادخل الفريق الثاني وهكذا وعند الانتهاء من جميع الفرق اضغط حساب النتائج</div> 
+            <br>
             <label>اسم الفريق:</label>
             <input type="text" id="teamName"><br>
             <h3>أزمنة المتسابقين</h3>
@@ -76,9 +91,9 @@
             <input type="number" class="time-input" id="time3Hours" placeholder="ساعات">
             <input type="number" class="time-input" id="time3Minutes" placeholder="دقائق">
             <input type="number" class="time-input" id="time3Seconds" placeholder="ثواني"><br>
-            <button onclick="saveTeamResult()">تسجيل النتيجة</button>
+            <button onclick="saveTeamResult()">حفظ</button>
             <button onclick="clearInputs('team')">تفريغ المحتويات</button>
-            <button onclick="calculateTeamResults()">حساب النتيجة</button>
+            <button onclick="calculateTeamResults()">حساب النتائج</button>
             <button onclick="clearAllResults('team')">حذف جميع النتائج</button>
 
             <h2>النتائج</h2>
@@ -91,15 +106,18 @@
                         <th>زمن اللاعب الثاني</th>
                         <th>زمن اللاعب الثالث</th>
                         <th>مجموع الأزمنة</th>
-                    </tr>
+                    </tr> 
                 </thead>
                 <tbody>
                 </tbody>
             </table>
         </div>
+        
 
         <div id="individual" class="tab">
             <h1>سباق الفردي العام</h1>
+            <div class="signature">ادخل رقم اللاعب وزمن المرحلة الاولى والثانية ثم اضغط حفظ لتسجيل اللاعب الذي يليله <br>عند الانتهاء اضغط عرض النتائج </div>
+            <br>
             <label>رقم اللاعب:</label>
             <input type="text" id="playerNumber"><br>
             <label>زمن المرحلة الأولى:</label>
@@ -207,8 +225,8 @@
                     <td>${index + 1}</td>
                     <td>${team.teamName}</td>
                     <td>${formatTime(team.time1)}</td>
-                    <td>${formatTime(team.time2)}</td
-                        <td>${formatTime(team.time3)}</td>
+                    <td>${formatTime(team.time2)}</td>
+                    <td>${formatTime(team.time3)}</td>
                     <td>${formatTime(team.totalTime)}</td>
                 `;
                 tbody.appendChild(row);
@@ -270,6 +288,7 @@
             document.getElementById(tabId).classList.add('active');
         }
     </script>
+    <div class="signature">تنفيذ : م. مشعل الحربي</div>
 </body>
 </html>
 
